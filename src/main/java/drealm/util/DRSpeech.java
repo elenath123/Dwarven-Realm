@@ -23,7 +23,7 @@ public class DRSpeech {
 	public static void onInit() {
 		Map<String, BufferedReader> speechBankNamesAndReaders = new HashMap<>();
 		ZipFile zip = null;
-		String addition = DRConfig.enableRussian ? "rus/" : "eng/";
+		String addition = DRConfig.enableChinese ? "chi/" : "eng/";
 		try {
 			ModContainer mc = DwarvenRealm.getModContainer();
 			if (mc.getSource().isFile()) {
