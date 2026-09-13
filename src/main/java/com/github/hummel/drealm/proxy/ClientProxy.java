@@ -7,6 +7,7 @@ import com.github.hummel.drealm.render.RenderDwarf;
 import com.github.hummel.drealm.render.RenderDwarfCommander;
 import com.github.hummel.drealm.render.RenderDwarfSmith;
 import com.github.hummel.drealm.util.NeiChecker;
+import com.github.hummel.drealm.util.ResourceHelper;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -21,11 +22,16 @@ public class ClientProxy implements CommonProxy {
 	public void onInit(FMLInitializationEvent event) {
 		CommonProxy.super.onInit(event);
 
-		IResourceManagerReloadListener rendererManager = new ReloadListener.Map();
+		ResourceHelper.loadSpeechBanksForClient();
+
 		IResourceManager resourceManager = Minecraft.getMinecraft().getResourceManager();
-		rendererManager.onResourceManagerReload(resourceManager);
-		((IReloadableResourceManager) resourceManager).registerReloadListener(rendererManager);
-		MinecraftForge.EVENT_BUS.register(rendererManager);
+
+		IResourceManagerReloadListener mapManager = new ReloadListener.Map();
+		mapManager.onResourceManagerReload(resourceManager);
+		((IReloadableResourceManager) resourceManager).registerReloadListener(mapManager);
+		MinecraftForge.EVENT_BUS.register(mapManager);
+
+		((IReloadableResourceManager) resourceManager).registerReloadListener(new ReloadListener.Speech());
 	}
 
 	@Override

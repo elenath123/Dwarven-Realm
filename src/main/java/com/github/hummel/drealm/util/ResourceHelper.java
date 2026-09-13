@@ -1,11 +1,13 @@
 package com.github.hummel.drealm.util;
 
-import com.github.hummel.drealm.Config;
 import com.github.hummel.drealm.Main;
 import com.github.hummel.drealm.api.API;
 import com.google.common.base.Charsets;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.ModContainer;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.Minecraft;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.input.BOMInputStream;
 
@@ -22,10 +24,32 @@ public class ResourceHelper {
 	private ResourceHelper() {
 	}
 
-	public static void loadSpeeechBanks() {
+	public static void loadSpeechBanks() {
+		loadSpeechBanksInternal("eng");
+	}
+
+	@SideOnly(Side.CLIENT)
+	public static void loadSpeechBanksForClient() {
+		String mcLang = Minecraft.getMinecraft().gameSettings.language;
+		String speechLang;
+		switch (mcLang) {
+			case "ru_RU":
+				speechLang = "rus";
+				break;
+			case "zh_CN":
+				speechLang = "chs";
+				break;
+			default:
+				speechLang = "eng";
+				break;
+		}
+		loadSpeechBanksInternal(speechLang);
+	}
+
+	private static void loadSpeechBanksInternal(String languageCode) {
 		Map<String, BufferedReader> speechBankNamesAndReaders = new HashMap<>();
 		ZipFile zip = null;
-		String addition = Config.enableRussian ? "rus/" : "eng/";
+		String addition = languageCode + "/";
 		try {
 			ModContainer mc = API.getModContainer();
 			if (mc.getSource().isFile()) {
@@ -113,4 +137,3 @@ public class ResourceHelper {
 		}
 	}
 }
-
