@@ -24,7 +24,7 @@ public interface CommonProxy {
 		MiniQuests.onInit();
 		Factions.onInit();
 
-		ResourceHelper.loadSpeeechBanks();
+		ResourceHelper.loadSpeechBanks();
 		API.setCommonMapImage(new ResourceLocation("drealm:map/map.png"));
 	}
 
