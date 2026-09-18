@@ -3,6 +3,7 @@ package com.github.hummel.drealm;
 import com.github.hummel.drealm.handler.EventHandler;
 import com.github.hummel.drealm.handler.GuiHandler;
 import com.github.hummel.drealm.handler.TickHandler;
+import com.github.hummel.drealm.nei.NEICompat;
 import com.github.hummel.drealm.proxy.CommonProxy;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -27,6 +28,7 @@ public class Main {
 
 	@Mod.EventHandler
 	public void onInit(FMLInitializationEvent event) {
+		NEICompat.registerHandlerInfo();
 		TickHandler tickHandler = new TickHandler();
 
 		MinecraftForge.EVENT_BUS.register(tickHandler);

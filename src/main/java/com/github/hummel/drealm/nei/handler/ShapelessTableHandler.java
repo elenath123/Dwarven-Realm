@@ -31,7 +31,7 @@ public class ShapelessTableHandler extends ShapelessRecipeHandler {
 
 	@Override
 	public String getOverlayIdentifier() {
-		return getRecipeName();
+		return "drealm." + recipeName + ".crafting";
 	}
 
 	@Override

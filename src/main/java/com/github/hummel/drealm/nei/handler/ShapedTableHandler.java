@@ -31,7 +31,7 @@ public class ShapedTableHandler extends ShapedRecipeHandler {
 
 	@Override
 	public String getOverlayIdentifier() {
-		return getRecipeName();
+		return "drealm." + recipeName + ".crafting";
 	}
 
 	@Override
